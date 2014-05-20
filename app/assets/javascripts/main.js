@@ -1,11 +1,9 @@
 var _map;
 var _group;
 var _userLocation;
+
 $(document).ready(function(){
 
-	InitLocation();
-
-});
 
 	function InitLocation(){
 		_map = L.map('map')
@@ -47,6 +45,9 @@ $(document).ready(function(){
 			alert('Sorry, we timed out looking for your location');
 	}
 
+		InitLocation();
+
+});
 	// var map = L.map('map').setView([51.505, -0.09], 13);
 
 		// map.on('click', onMapClick);
