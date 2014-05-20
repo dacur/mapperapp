@@ -1,0 +1,26 @@
+.col-md-4
+.container.col-md-4.contactus
+  %h2 Contact Team Mapper
+  %br
+  %h4 We want to hear from you!
+  %br
+  -# / Button trigger modal
+  %button.btn.btn-primary.btn-lg{"data-target" => "#myModal", "data-toggle" => "modal"}
+    Click to Contact Us!
+  / Modal
+  #myModal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", role: "dialog", tabindex: "-1"}
+    .modal-dialog
+      .modal-content
+        .modal-header
+          %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", type: "button"} ×
+          %h4#myModalLabel.modal-title Contact Us!
+        .modal-body
+          .emailwrapper
+            %p.textleft Just give us your email address and we'll be in touch!
+            %textarea.form-control{placeholder: "Valuable comments here...", type: "form", id: "textbox"}
+            %br
+            .col-sm-10
+            %input#inputEmail3.form-control{placeholder: "Email address...", type: "email"}/
+        .modal-footer
+          %button.btn.btn-default{"data-dismiss" => "modal", type: "button"} Cancel
+          %button.btn.btn-primary{type: "button"} Submit

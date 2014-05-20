@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Mapper</title>
+  <%= stylesheet_link_tag 'application', media: 'all' %>
+  <%= javascript_include_tag 'application' %>
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+  <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700' rel='stylesheet' type='text/css'>
+  <%= javascript_include_tag "http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.js" %>
+  <%= stylesheet_link_tag "http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.css" %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+
+      <a class="navbar-brand" href="/">Mapper</a>
+      <ul class="nav navbar-nav">
+
+        <li class="<%= is_active?('/') %>"><%= link_to "Home", '/' %></li>
+        <li class="<%= is_active?('/main/map') %>"><%= link_to "Map", '/main/map' %></li>
+        <li class="<%= is_active?('/main/about') %>"><%= link_to "About", '/main/about' %></li>
+        <li class="<%= is_active?('/main/contact') %>"><%= link_to "Contact", '/main/contact' %></li>
+
+      </ul>
+    </div>
+  </div>
+  </nav>
+<%= yield %>
+
+
+
+</body>
+<footer><span class="glyphicon glyphicon-map-marker"></span> &nbsp; &nbsp; Created by Team Mapper in Raleigh, NC &nbsp; &nbsp; <span class="glyphicon glyphicon-map-marker"></span>  </footer>
+</html>
+
+<!--       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"> -->
+      <!-- </button> -->
