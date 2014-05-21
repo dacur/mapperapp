@@ -4,6 +4,28 @@ var _userLocation;
 
 $(document).ready(function(){
 
+	$('#maptext').keypress(function(e){
+		if (e.keyCode == 13){
+			searchfoursquare();
+		}
+	});
+
+	function searchfoursquare(){
+		_group.clearLayers();
+
+		var query = $('#maptext').val();
+
+		var url = 'https://api.foursquare.com/v2/venues/search?';
+		url += 'll=' + _userLocation[0] + ',' + _userLocation[1];
+		url += '&radius=10000';
+		url += '&intent=browse';
+		url += '&query=' + query;
+		url += '&client_id=5H3DCCHXFK2FXO5EVDA4RH4APOOKAOR5IP4JLDG4VAZNIDOM';
+		url += '&client_secret=GB1VDJYA0TB2QTPBK4RWIV0LTRSW1N5KIKFX2ZSYWEZY2ZAG';
+		url += '&v=20130815';
+
+		console.log(url);
+	}
 
 	function InitLocation(){
 		_map = L.map('map')
