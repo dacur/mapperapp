@@ -63,7 +63,7 @@ $(document).ready(function(){
 
 			// html += SetupTwilioText(id, name);
 
-			// marker.bindPopup(html);
+			marker.bindPopup(html);
 
 			_group.addLayer(marker);
 		}
