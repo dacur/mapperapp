@@ -4,13 +4,26 @@ var _userLocation;
 
 $(document).ready(function(){
 
-	$('#maptext').keypress(function(e){
+	var url = location.pathname.substring(location.pathname.lastIndexOf('/')+1);
+	if (url == 'map') {
+		LoadMapPage();
+	}
+
+});
+
+	function LoadMapPage(){
+		InitLocation();
+		$('#maptext').keypress(function(e){
 		if (e.keyCode == 13){
 			searchfoursquare();
 		}
-	});
+		});
+	}
+
+
 
 	function searchfoursquare(){
+
 		_group.clearLayers();
 
 		var query = $('#maptext').val();
@@ -24,11 +37,51 @@ $(document).ready(function(){
 		url += '&client_secret=GB1VDJYA0TB2QTPBK4RWIV0LTRSW1N5KIKFX2ZSYWEZY2ZAG';
 		url += '&v=20130815';
 
-		console.log(url);
+		$.getJSON(url, {}, function (data) {
+		// notice that the data can be accessed like a multi-dimensional array
+		list = data['response']['venues'];
+		for (var i = 0; i < list.length; i++) {
+			var venue = list[i];
+
+			// create the icon for the map
+			var id = venue['id'];
+			var lat = venue['location']['lat'];
+			var lng = venue['location']['lng'];
+
+			if (venue['categories'].length === 0)
+				continue;
+
+			var category = venue['categories'][0];
+			var path = category['icon'].prefix + "32" + category['icon'].suffix;
+			var newIcon = CreateIcon(path, '');
+
+			var marker = AddMapMarker(id, lat, lng, path, newIcon);
+
+			// create a popup with some basic info about the venue
+			var name = venue['name'];
+			var html = '<h2>' + name + '</h2>';
+
+			if (typeof venue['contact']['phone'] != "undefined") {
+				html += '<div class="item"><a href="tel:' + venue['contact']['phone'] + '">' + venue['contact']['formattedPhone'] + '</a></div>';
+			}
+
+			html += '<div class="item">Type: ' + category['shortName'] + '</div>';
+			// who wants to help add a link to the menu?
+
+			// html += SetupTwilioText(id, name);
+
+			// marker.bindPopup(html);
+
+			_group.addLayer(marker);
+		}
+
+		// SetupTwilioEvents();
+
+		});
 	}
 
 	function InitLocation(){
-		_map = L.map('map')
+		_map = L.map('map');
 		_group = new L.LayerGroup();
 		_map.addLayer(_group);
 
@@ -40,8 +93,6 @@ $(document).ready(function(){
 		var gl = navigator.geolocation;
 
 		gl.getCurrentPosition(geoSuccess, geoError);
-
-		// $('#txtSearch').keypress(function(e))
 
 	}
 
@@ -67,9 +118,32 @@ $(document).ready(function(){
 			alert('Sorry, we timed out looking for your location');
 	}
 
-		InitLocation();
+	//*******NEW CODE BELOW*******
 
-});
+	function AddMapMarker(id, lat, lng, path, icon) {
+	var latLng = new L.LatLng(lat, lng);
+	var marker = new L.Marker(latLng, { icon: icon });
+
+	_group.addLayer(marker);
+
+	return marker;
+	}
+
+	function CreateIcon(iconPath, className) {
+		var icon = L.icon({
+			iconUrl: iconPath,
+			shadowUrl: null,
+			iconSize: new L.Point(44, 55),
+			//iconAnchor: new L.Point(16, 41),
+			popupAnchor: new L.Point(0, -31),
+			className: className
+		});
+
+		return icon;
+	}
+		
+
+
 	// var map = L.map('map').setView([51.505, -0.09], 13);
 
 		// map.on('click', onMapClick);
