@@ -7,8 +7,11 @@ class MainController < ApplicationController
 	name = params[:name];
 	menuLink = params[:menuLink]
 
-	# msg = name + ' | ' + text
-	msg = text + ' | ' + name + ' | ' + menuLink
+	if menuLink != 'undefined'
+		msg = text + ' | ' + name + ' | ' + menuLink
+	else
+		msg = text + ' | ' + name + ' | No menu available'
+	end
 
 	account_sid = "AC9f3390068f6c0a63c3cd46122f801276"
 	auth_token = "42e79aec1409fd9a6bfe6eab1857a33a"
