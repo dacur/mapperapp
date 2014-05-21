@@ -30,7 +30,7 @@ $(document).ready(function(){
 		_userLocation = [latitude, longitude];
 		_map.setView(_userLocation, 16);
 
-		L.marker(_userLocation).addTo(_group);
+		L.marker(_userLocation).addTo(_map); //changed from .addTo(_group)
 
 	}
 
