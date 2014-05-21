@@ -13,14 +13,7 @@ $(document).ready(function(){
 
 	function LoadMapPage(){
 		InitLocation();
-		$('#maptext').keypress(function(e){
-		if (e.keyCode == 13){
-			searchfoursquare();
-		}
-		});
 	}
-
-
 
 	function searchfoursquare(){
 
@@ -93,6 +86,12 @@ $(document).ready(function(){
 		var gl = navigator.geolocation;
 
 		gl.getCurrentPosition(geoSuccess, geoError);
+
+		$('#maptext').keypress(function(e){
+			if (e.keyCode == 13){
+				searchfoursquare();
+			}
+		});
 
 	}
 
